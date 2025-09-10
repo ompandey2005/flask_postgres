@@ -57,7 +57,7 @@ def students_api():
     query, params = build_query_and_params(request.args)
     cur.execute(query, params)
     rows = cur.fetchall()
-    # convert to list of dicts for JSON
+
     cols = [desc[0] for desc in cur.description]
     students = [dict(zip(cols, r)) for r in rows]
     cur.close()
@@ -108,3 +108,4 @@ def delete():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
