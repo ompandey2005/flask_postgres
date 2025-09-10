@@ -25,6 +25,24 @@
     </style>
 </head>
 <body>
+
+<form method="get" action="/" style="margin-bottom:12px;">
+  <input type="text" name="course" placeholder="Course" value="{{ request.args.get('course','') }}">
+  <input type="number" name="age" placeholder="Age" value="{{ request.args.get('age','') }}">
+  <select name="sort">
+    <option value="">Sort by</option>
+    <option value="age" {% if request.args.get('sort')=='age' %}selected{% endif %}>Age</option>
+    <option value="created_at" {% if request.args.get('sort')=='created_at' %}selected{% endif %}>Created at</option>
+  </select>
+  <select name="order">
+    <option value="asc" {% if request.args.get('order','asc')=='asc' %}selected{% endif %}>asc</option>
+    <option value="desc" {% if request.args.get('order')=='desc' %}selected{% endif %}>desc</option>
+  </select>
+  <input type="submit" value="Apply">
+  <a href="/">Reset</a>
+</form>
+
+
 <h2>Students</h2>
 <table>
     <thead>
@@ -81,7 +99,7 @@
         <td>{{ row[3] }}</td>
         <td>{{ row[4] }}</td>
         <td>
-            
+
             <form class="inline" action="/update" method="post">
                 <input type="hidden" name="id" value="{{ row[0] }}">
                 <input type="text" name="name" value="{{ row[1] }}" required>
@@ -91,7 +109,7 @@
                 <input type="submit" value="Update">
             </form>
 
-            
+
             <form class="inline" action="/delete" method="post" onsubmit="return confirm('Delete this record?');">
                 <input type="hidden" name="id" value="{{ row[0] }}">
                 <input type="submit" value="Delete">
@@ -103,4 +121,3 @@
 </table>
 </body>
 </html>
-
